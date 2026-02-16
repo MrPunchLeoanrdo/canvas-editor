@@ -1,6 +1,6 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
-describe('菜单-代码块', () => {
+describe('菜单-代码�?, () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/canvas-editor/')
 
@@ -9,7 +9,7 @@ describe('菜单-代码块', () => {
 
   const text = `console.log('canvas-editor')`
 
-  it('代码块', () => {
+  it('代码�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -32,3 +32,4 @@ describe('菜单-代码块', () => {
     })
   })
 })
+

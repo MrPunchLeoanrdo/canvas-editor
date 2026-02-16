@@ -1,4 +1,4 @@
-import Editor, { ElementType, TitleLevel } from '../../../src/editor'
+import Editor, { ElementType, TitleLevel } from '../../../online_editor/src/editor'
 
 describe('菜单-标题', () => {
   const url = 'http://localhost:3000/canvas-editor/'
@@ -41,3 +41,4 @@ describe('菜单-标题', () => {
     })
   })
 })
+

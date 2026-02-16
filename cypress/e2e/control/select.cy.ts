@@ -1,6 +1,6 @@
-import Editor, { ControlType, ElementType } from '../../../src/editor'
+import Editor, { ControlType, ElementType } from '../../../online_editor/src/editor'
 
-describe('控件-列举型', () => {
+describe('控件-列举�?, () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/canvas-editor/')
 
@@ -11,7 +11,7 @@ describe('控件-列举型', () => {
   const elementType: ElementType = <ElementType>'control'
   const controlType: ControlType = <ControlType>'select'
 
-  it('列举型', () => {
+  it('列举�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -24,14 +24,14 @@ describe('控件-列举型', () => {
           control: {
             type: controlType,
             value: null,
-            placeholder: '列举型',
+            placeholder: '列举�?,
             valueSets: [
               {
-                value: '有',
+                value: '�?,
                 code: '98175'
               },
               {
-                value: '无',
+                value: '�?,
                 code: '98176'
               }
             ]
@@ -54,3 +54,4 @@ describe('控件-列举型', () => {
     })
   })
 })
+

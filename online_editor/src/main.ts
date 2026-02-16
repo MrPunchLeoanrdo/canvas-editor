@@ -1,3 +1,4 @@
+import mammoth from 'mammoth/mammoth.browser'
 import { commentList, data, options } from './mock'
 import './style.css'
 import prism from 'prismjs'
@@ -33,38 +34,81 @@ window.onload = function () {
 
   // 1. 初始化编辑器
   const container = document.querySelector<HTMLDivElement>('.editor')!
-  const instance = new Editor(
-    container,
-    {
-      header: [
-        {
-          value: '第一人民医院',
-          size: 32,
-          rowFlex: RowFlex.CENTER
-        },
-        {
-          value: '\n门诊病历',
-          size: 18,
-          rowFlex: RowFlex.CENTER
-        },
-        {
-          value: '\n',
-          type: ElementType.SEPARATOR
-        }
-      ],
-      main: <IElement[]>data,
-      footer: [
-        {
-          value: 'canvas-editor',
-          size: 12
-        }
-      ]
-    },
-    options
-  )
+  const initialData = {
+    header: [] as IElement[],
+    main: <IElement[]>data,
+    footer: [] as IElement[]
+  }
+  const instance = new Editor(container, initialData, options)
   console.log('实例: ', instance)
   // cypress使用
   Reflect.set(window, 'editor', instance)
+
+  const importButton =
+    document.querySelector<HTMLButtonElement>('.menu-import__button')
+  const importInput =
+    document.querySelector<HTMLInputElement>('.menu-import__input')
+  const importStatus =
+    document.querySelector<HTMLSpanElement>('.menu-import__status')
+
+  const setImportStatus = (message: string) => {
+    if (!importStatus) return
+    importStatus.textContent = message
+  }
+
+
+  importButton?.addEventListener('click', () => {
+    importInput?.click()
+  })
+
+  importInput?.addEventListener('change', async () => {
+    const file = importInput.files?.[0]
+    if (!file) {
+      setImportStatus('')
+      return
+    }
+    const fileName = file.name.toLowerCase()
+    const isDocx = fileName.endsWith('.docx')
+    const isTxt = fileName.endsWith('.txt')
+    if (!isDocx && !isTxt) {
+      setImportStatus('仅支持 .docx 或 .txt 文件')
+      importInput.value = ''
+      return
+    }
+    setImportStatus('正在导入...')
+    instance.command.executeSetValue(initialData)
+    try {
+      let html = ''
+      if (isTxt) {
+        const text = await file.text()
+        const escaped = text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\t/g, '    ')
+          .replace(/ /g, '&nbsp;')
+          .replace(/\r?\n/g, '<br/>')
+        html = `<div>${escaped}</div>`
+      } else {
+        const arrayBuffer = await file.arrayBuffer()
+        const result = await mammoth.convertToHtml({ arrayBuffer })
+        html = result.value || ''
+        if (result.messages.length > 0) {
+          console.warn('Docx import warnings:', result.messages)
+        }
+      }
+      instance.command.executeSetHTML({
+        main: html
+      })
+      setImportStatus('导入完成')
+    } catch (error) {
+      const message = error instanceof Error ? error.message : '导入失败'
+      console.error('Import failed:', error)
+      setImportStatus(`导入失败: ${message}`)
+    } finally {
+      importInput.value = ''
+    }
+  })
 
   // 菜单弹窗销毁
   window.addEventListener(

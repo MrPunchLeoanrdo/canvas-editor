@@ -1,4 +1,4 @@
-import Editor from '../../src/editor'
+import Editor from '../../online_editor/src/editor'
 
 describe('基础功能', () => {
   beforeEach(() => {
@@ -57,7 +57,7 @@ describe('基础功能', () => {
 
       editor.command.executeInsertElementList([
         {
-          value: 'canvas-editor 2022 编辑器'
+          value: 'canvas-editor 2022 编辑�?
         }
       ])
 
@@ -65,3 +65,4 @@ describe('基础功能', () => {
     })
   })
 })
+

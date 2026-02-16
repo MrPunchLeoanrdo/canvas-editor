@@ -1,13 +1,13 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
-describe('菜单-分页符', () => {
+describe('菜单-分页�?, () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/canvas-editor/')
 
     cy.get('canvas').first().as('canvas').should('have.length', 1)
   })
 
-  it('分页符', () => {
+  it('分页�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -19,3 +19,4 @@ describe('菜单-分页符', () => {
     })
   })
 })
+

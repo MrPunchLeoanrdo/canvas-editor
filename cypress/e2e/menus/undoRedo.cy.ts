@@ -1,4 +1,4 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
 describe('菜单-撤销&重做', () => {
   beforeEach(() => {
@@ -47,3 +47,4 @@ describe('菜单-撤销&重做', () => {
     })
   })
 })
+

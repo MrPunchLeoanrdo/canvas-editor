@@ -1,4 +1,4 @@
-import Editor, { ControlType, ElementType } from '../../../src/editor'
+import Editor, { ControlType, ElementType } from '../../../online_editor/src/editor'
 
 describe('控件-复选框', () => {
   beforeEach(() => {
@@ -26,11 +26,11 @@ describe('控件-复选框', () => {
             value: null,
             valueSets: [
               {
-                value: '有',
+                value: '�?,
                 code: '98175'
               },
               {
-                value: '无',
+                value: '�?,
                 code: '98176'
               }
             ]
@@ -44,3 +44,4 @@ describe('控件-复选框', () => {
     })
   })
 })
+

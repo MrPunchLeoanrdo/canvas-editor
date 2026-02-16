@@ -1,6 +1,6 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
-describe('菜单-日期选择器', () => {
+describe('菜单-日期选择�?, () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/canvas-editor/')
 
@@ -26,3 +26,4 @@ describe('菜单-日期选择器', () => {
     })
   })
 })
+

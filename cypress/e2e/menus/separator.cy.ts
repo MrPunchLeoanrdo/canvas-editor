@@ -1,13 +1,13 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
-describe('菜单-分割线', () => {
+describe('菜单-分割�?, () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/canvas-editor/')
 
     cy.get('canvas').first().as('canvas').should('have.length', 1)
   })
 
-  it('分割线', () => {
+  it('分割�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -30,3 +30,4 @@ describe('菜单-分割线', () => {
     })
   })
 })
+

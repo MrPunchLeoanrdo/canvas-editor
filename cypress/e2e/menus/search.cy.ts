@@ -1,4 +1,4 @@
-import Editor, { ElementType } from '../../../src/editor'
+import Editor, { ElementType } from '../../../online_editor/src/editor'
 
 describe('菜单-搜索', () => {
   beforeEach(() => {
@@ -96,10 +96,10 @@ describe('菜单-搜索', () => {
         .then(() => {
           const data = editor.command.getValue().data.main
 
-          // 普通文本
+          // 普通文�?
           expect(data[0].value).to.be.eq(replaceText)
 
-          // 表格内文本
+          // 表格内文�?
           expect(data[1].trList![0].tdList[0].value[0].value).to.be.eq(
             replaceText
           )
@@ -110,3 +110,4 @@ describe('菜单-搜索', () => {
     })
   })
 })
+

@@ -1,4 +1,4 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
 describe('菜单-文本处理', () => {
   beforeEach(() => {
@@ -162,7 +162,7 @@ describe('菜单-文本处理', () => {
     })
   })
 
-  it('下划线', () => {
+  it('下划�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -186,7 +186,7 @@ describe('菜单-文本处理', () => {
     })
   })
 
-  it('删除线', () => {
+  it('删除�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -302,3 +302,4 @@ describe('菜单-文本处理', () => {
     })
   })
 })
+

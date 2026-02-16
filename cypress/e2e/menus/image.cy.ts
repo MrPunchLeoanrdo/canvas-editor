@@ -1,4 +1,4 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
 describe('菜单-图片', () => {
   beforeEach(() => {
@@ -23,3 +23,4 @@ describe('菜单-图片', () => {
     })
   })
 })
+

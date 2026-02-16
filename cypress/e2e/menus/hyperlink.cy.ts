@@ -1,6 +1,6 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
-describe('菜单-超链接', () => {
+describe('菜单-超链�?, () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/canvas-editor/')
 
@@ -10,7 +10,7 @@ describe('菜单-超链接', () => {
   const text = 'canvas-editor'
   const url = 'https://hufe.club/canvas-editor'
 
-  it('超链接', () => {
+  it('超链�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -37,3 +37,4 @@ describe('菜单-超链接', () => {
     })
   })
 })
+

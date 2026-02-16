@@ -1,4 +1,4 @@
-import Editor, { ElementType } from '../../../src/editor'
+import Editor, { ElementType } from '../../../online_editor/src/editor'
 
 describe('菜单-复选框', () => {
   beforeEach(() => {
@@ -9,7 +9,7 @@ describe('菜单-复选框', () => {
 
   const type: ElementType = <ElementType>'checkbox'
 
-  it('代码块', () => {
+  it('代码�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -31,3 +31,4 @@ describe('菜单-复选框', () => {
     })
   })
 })
+

@@ -1,6 +1,6 @@
-import Editor from '../../../src/editor'
+import Editor from '../../../online_editor/src/editor'
 
-describe('菜单-行处理', () => {
+describe('菜单-行处�?, () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/canvas-editor/')
 
@@ -9,7 +9,7 @@ describe('菜单-行处理', () => {
 
   const text = 'canvas-editor'
 
-  it('左对齐', () => {
+  it('左对�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -75,7 +75,7 @@ describe('菜单-行处理', () => {
     })
   })
 
-  it('行间距', () => {
+  it('行间�?, () => {
     cy.getEditor().then((editor: Editor) => {
       editor.command.executeSelectAll()
 
@@ -101,3 +101,4 @@ describe('菜单-行处理', () => {
     })
   })
 })
+

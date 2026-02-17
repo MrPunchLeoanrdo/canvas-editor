@@ -90,16 +90,60 @@ window.onload = function () {
           .replace(/\r?\n/g, '<br/>')
         html = `<div>${escaped}</div>`
       } else {
-        const arrayBuffer = await file.arrayBuffer()
-        const result = await mammoth.convertToHtml({ arrayBuffer })
-        html = result.value || ''
-        if (result.messages.length > 0) {
-          console.warn('Docx import warnings:', result.messages)
+        // Use external soffice conversion service instead of mammoth
+        try {
+          const fd = new FormData()
+          fd.append('file', file)
+          // Try known local convert endpoints. Adjust port if your convert server runs elsewhere.
+          const endpoints = [
+            'http://127.0.0.1:3001/doc/convert',
+            // ask for both html + elements
+            'http://127.0.0.1:4010/api/parse?mode=both',
+            'http://localhost:4010/api/parse?mode=both'
+          ]
+          let res: Response | null = null
+          let dataHtml = ''
+          for (const url of endpoints) {
+            try {
+              setImportStatus(`正在上传到 ${url} ...`)
+              const r = await fetch(url, { method: 'POST', body: fd })
+              if (!r.ok) {
+                // if JSON error response, continue trying other endpoints
+                const txt = await r.text().catch(() => '')
+                console.warn('convert failed', url, r.status, txt)
+                continue
+              }
+              // prefer JSON responses. If endpoint returned elements, use them.
+              const contentType = r.headers.get('content-type') || ''
+              if (contentType.includes('application/json')) {
+                const json: any = await r.json()
+                // if parser returned structured elements, use them
+                if (json.elements && Array.isArray(json.elements)) {
+                  // inject elements into editor
+                  instance.command.executeSetValue({ header: [], main: json.elements as IElement[], footer: [] })
+                  setImportStatus('导入完成')
+                  importInput.value = ''
+                  return
+                }
+                dataHtml = json.html || ''
+              } else {
+                dataHtml = await r.text()
+              }
+              res = r
+              break
+            } catch (err) {
+              console.warn('convert endpoint error', url, err)
+            }
+          }
+          if (!res) throw new Error('无法连接到转换服务，请启动 soffice 转换服务')
+          html = dataHtml
+        } catch (err) {
+          console.error('Docx import via soffice failed:', err)
+          throw err
         }
       }
-      instance.command.executeSetHTML({
-        main: html
-      })
+      // inject converted HTML into editor main
+      instance.command.executeSetHTML({ main: html })
       setImportStatus('导入完成')
     } catch (error) {
       const message = error instanceof Error ? error.message : '导入失败'

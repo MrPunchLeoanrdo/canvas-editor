@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>LibreOffice DOCX/DCO 解析测试</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    #result { border: 1px solid #ccc; padding: 1em; margin-top: 1em; min-height: 200px; }
+  </style>
+</head>
+<body>
+  <h1>LibreOffice DOCX/DCO 解析测试</h1>
+  <input type="file" id="fileInput" accept=".docx,.dco" />
+  <button id="uploadBtn">上传并解析</button>
+  <div id="result">解析结果将在这里显示</div>
+  <script>
+    document.getElementById('uploadBtn').onclick = async function() {
+      const fileInput = document.getElementById('fileInput')
+      const resultDiv = document.getElementById('result')
+      if (!fileInput.files.length) {
+        alert('请先选择一个 docx 或 dco 文件')
+        return
+      }
+      const file = fileInput.files[0]
+      // 这里假设你有一个后端接口 /api/parse，接收文件并返回 HTML
+      const formData = new FormData()
+      formData.append('file', file)
+      resultDiv.innerHTML = '正在上传并解析...'
+      try {
+        console.log('Uploading file', file.name, file.size)
+        const res = await fetch('http://localhost:4010/api/parse', {
+          method: 'POST',
+          body: formData
+        })
+        console.log('Response status', res.status, res.statusText)
+        if (!res.ok) throw new Error('解析失败: ' + res.status + ' ' + res.statusText)
+        const html = await res.text()
+        console.log('Received HTML length', html.length)
+        // 如果是完整 HTML 文档，使用 iframe 展示更可靠
+        resultDiv.innerHTML = ''
+        const iframe = document.createElement('iframe')
+        iframe.style.width = '100%'
+        iframe.style.height = '600px'
+        iframe.style.border = 'none'
+        iframe.srcdoc = html
+        resultDiv.appendChild(iframe)
+      } catch (e) {
+        console.error(e)
+        resultDiv.innerHTML = '解析失败: ' + e.message
+      }
+    }
+  </script>
+</body>
+</html>

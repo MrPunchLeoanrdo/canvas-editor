@@ -49,7 +49,8 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^10.0.1",
-    "@types/node": "^22.12.0",
+    "@types/multer": "^2.0.0",
+    "@types/node": "^22.19.11",
     "@types/prismjs": "^1.26.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
@@ -57,14 +58,18 @@
     "cypress-file-upload": "^5.0.8",
     "eslint": "7.32.0",
     "simple-git-hooks": "^2.8.1",
-    "typescript": "4.9.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5",
     "vite": "^7.3.1",
     "vite-plugin-css-injected-by-js": "^2.1.1",
-    "vitepress": "^1.6.4",
+    "vitepress": "^0.1.1",
     "vue": "^3.2.45"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
+    "express": "^5.2.1",
     "mammoth": "^1.6.0",
+    "multer": "^2.0.2",
     "prismjs": "^1.27.0"
   }
 }
